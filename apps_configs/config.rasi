@@ -1,0 +1,28 @@
+@theme "/home/willypaz/.local/share/rofi/themes/squared-nord.rasi"
+
+configuration {
+    show-icons:     true;
+}
+
+* {
+    accent-color: #d3dae3;
+}
+
+window {
+    background-color: #161925;
+    border-radius: 5px;
+    margin: 0;
+}
+
+inputbar {
+    background-color: #161925;
+}
+
+element {
+    padding: 0.8em 1em;
+}
+
+element selected normal, element selected active {
+    text-color: #d3dae3;
+    background-color: #790000;
+}
