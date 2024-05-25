@@ -51,23 +51,23 @@ keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
     # Switch between windows
-    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
-    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
-    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
-    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+    Key([mod], "j", lazy.layout.previous(), desc="Move focus to left"),
+    Key([mod], "k", lazy.layout.next(), desc="Move focus to right"),
+    Key([mod], "l", lazy.layout.down(), desc="Move focus down"),
+    Key([mod], "h", lazy.layout.up(), desc="Move focus up"),
     Key(["mod1"], "tab", lazy.layout.next(), desc="Move window focus to other window"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_left(), desc="Move window to the left"),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_right(), desc="Move window to the right"),
+    Key([mod, "shift"], "l", lazy.layout.shuffle_down(), desc="Move window down"),
+    Key([mod, "shift"], "h", lazy.layout.shuffle_up(), desc="Move window up"),
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    Key([mod, "control"], "j", lazy.layout.grow_left(), desc="Grow window to the left"),
+    Key([mod, "control"], "k", lazy.layout.grow_right(), desc="Grow window to the right"),
+    Key([mod, "control"], "l", lazy.layout.grow_down(), desc="Grow window down"),
+    Key([mod, "control"], "h", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -78,8 +78,8 @@ keys = [
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
-    Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen on the focused window"),
-    Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
+    Key([mod, "mod1"], "Return", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen on the focused window"),
+    Key([mod], "f", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
@@ -118,14 +118,14 @@ for i, group in enumerate(groups, 1):
             Key(
                 [mod],
                 str(i),
-                lazy.group[group.name].toscreen(),
+                lazy.group[group.name].toscreen(toggle=True),
                 desc="Switch to group {}".format(group.name),
             ),
             # mod1 + shift + group number = switch to & move focused window to group
             Key(
                 [mod, "shift"],
                 str(i),
-                lazy.window.togroup(group.name, switch_group=True),
+                lazy.window.togroup(group.name, switch_group=False),
                 desc="Switch to & move focused window to group {}".format(group.name),
             ),
             # Or, use below if you prefer not to switch to that group.
@@ -135,20 +135,39 @@ for i, group in enumerate(groups, 1):
         ]
     )
 
+layout_theme = {
+    "border_width": 3,
+    "margin": [5, 8, 5, 5],
+    "font": "Fira Code",
+    "font_size": 12,
+    "border_focus": colors["selection"],
+    "border_normal": colors["bg"],
+    "border_on_single": False,
+    # "margin_on_single": False,
+}
+
+
 layouts = [
-    layout.Max(margin=5),
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+    layout.Max(**{key: value for key, value in layout_theme.items() if key != "border_width"}),
+    layout.Tile(
+        **layout_theme,
+        shift_windows=False,
+        ratio=0.5,
+    ),
+    # layout.Columns(**layout_theme, border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
     # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
+    # layout.Stack(**layout_theme, num_stacks=2),
+    # layout.Bsp(**layout_theme),
+    # layout.Matrix(**layout_theme),
+    # layout.MonadTall(
+    #     **layout_theme,
+    #     shift_windows=True,
+    # ),
+    # layout.MonadWide(**layout_theme),
+    # layout.RatioTile(**layout_theme),
+    # layout.TreeTab(**layout_theme),
+    # layout.VerticalTile(**layout_theme),
+    # layout.Zoomy(**layout_theme),
 ]
 
 # Screen
@@ -168,9 +187,9 @@ mouse = [
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
-follow_mouse_focus = True
+follow_mouse_focus = False
 bring_front_click = False
-floats_kept_above = True
+floats_kept_above = False
 cursor_warp = False
 floating_layout = layout.Floating(
     float_rules=[

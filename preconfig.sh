@@ -10,7 +10,8 @@ sudo apt install -y sudo git zsh curl wget neovim \
     lightdm picom arandr fonts-firacode \
     hyfetch btop blueman volumeicon-alsa \
     ibus python3-psutil thunar pavucontrol \
-    vlc
+    vlc network-manager network-manager-gnome \
+    brightnessctl breeze lightdm-gtk-greeter-settings
 
 git clone https://github.com/qtile/qtile
 

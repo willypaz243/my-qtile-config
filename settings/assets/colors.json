@@ -2,6 +2,12 @@
     "sweet_dark": {
         "bg": "#161925",
         "fg": "#d3dae3",
-        "selection": "#790000"
+        "selection": "#790000",
+        "red": "#ff5555",
+        "green": "#50fa7b",
+        "yellow": "#f1fa8c",
+        "blue": "#bd93f9",
+        "magenta": "#ff79c6",
+        "cyan": "#8be9fd"
     }
 }

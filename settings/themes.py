@@ -7,6 +7,12 @@ class Colors(TypedDict):
     bg: str
     fg: str
     selection: str
+    red: str
+    green: str
+    yellow: str
+    blue: str
+    magenta: str
+    cyan: str
 
 
 def load_colors(theme: str) -> Colors:
