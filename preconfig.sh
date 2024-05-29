@@ -1,4 +1,5 @@
 cd ~/
+
 sudo apt install -y software-properties-common
 
 sudo add-apt-repository non-free contrib -y
@@ -15,9 +16,11 @@ sudo apt install -y sudo git zsh curl wget neovim \
 
 git clone https://github.com/qtile/qtile
 
-cp qtile/resources/*.desktop /usr/share/xsessions/
+sudo cp qtile/resources/qtile.desktop /usr/share/xsessions/
 
 sudo pip install qtile --break-system-packages
+
+sudo rm -r qtile
 
 git clone https://github.com/newmanls/rofi-themes-collection.git
 
@@ -29,6 +32,6 @@ mv ./themes/* ~/.local/share/rofi/themes/
 
 cd ..
 
-rm -r rofi-themes-collection
+sudo rm -r rofi-themes-collection
 
 cp .config/qtile/apps_configs/config.rasi .config/rofi/config.rasi
