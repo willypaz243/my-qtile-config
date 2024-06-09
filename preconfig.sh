@@ -12,7 +12,9 @@ sudo apt install -y sudo git zsh curl wget neovim \
     hyfetch btop blueman volumeicon-alsa \
     ibus python3-psutil thunar pavucontrol \
     vlc network-manager network-manager-gnome \
-    brightnessctl breeze lightdm-gtk-greeter-settings
+    brightnessctl breeze lightdm-gtk-greeter-settings \
+    cbatticon rofi kitty fonts-firacode fonts-material-design-icons-iconfont \
+    fonts-materialdesignicons-webfont
 
 git clone https://github.com/qtile/qtile
 

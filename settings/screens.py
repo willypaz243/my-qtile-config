@@ -95,11 +95,12 @@ def create_screens(colors: Colors):
         shell=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
+        check=True,
     )
 
     if process.returncode != 0:
         error = process.stderr.decode("UTF-8")
-        logger.error(f"Failed counting monitors using {xrandr_command}:\n{error}")
+        logger.error("Failed counting monitors using %s:\n%s", xrandr_command, error)
         connected_monitors = 1
     else:
         connected_monitors = int(process.stdout.decode("UTF-8"))
@@ -110,7 +111,12 @@ def create_screens(colors: Colors):
                 Screen(
                     wallpaper=wallpaper_path,
                     wallpaper_mode="fill",
-                    top=secondary_widgets(colors),
+                    top=Bar(
+                        widgets=secondary_widgets(colors),
+                        size=32,
+                        opacity=0.96,
+                        margin=[5, 8, 0, 5],
+                    ),
                 )
             )
 
