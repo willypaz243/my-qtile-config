@@ -89,6 +89,9 @@ keys = [
     # Rofi keys
     Key(["mod1"], "space", lazy.spawn("rofi -show drun")),
     Key([mod], "m", lazy.spawn("rofi -show window")),
+    # Screenshot keys
+    Key([mod], "Print", lazy.spawn("flameshot screen"), desc="Take screenshot and save it to the clipboard"),
+    Key([mod], "s", lazy.spawn("flameshot gui"), desc="Take screenshot and save it to the clipboard"),
     # Volume
     Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
@@ -198,6 +201,10 @@ floating_layout = layout.Floating(
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,
+        # Apply to specific programs.
+        Match(wm_class="Emulator"),  # Android Studio Emulator
+        Match(wm_class="plasma-emojier"),  # plasma-emojier
+        # Extra
         Match(wm_class="confirmreset"),  # gitk
         Match(wm_class="makebranch"),  # gitk
         Match(wm_class="maketag"),  # gitk
@@ -206,7 +213,6 @@ floating_layout = layout.Floating(
         Match(title="pinentry"),  # GPG key password entry
     ]
 )
-
 
 auto_fullscreen = True
 focus_on_window_activation = "smart"

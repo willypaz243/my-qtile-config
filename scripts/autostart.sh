@@ -13,7 +13,7 @@ cbatticon -u 5 &
 # bash $HOME/.config/qtile/scripts/.fehbg
 
 # Launch notification daemon
-#dunst -config $HOME/.config/qtile/dunstrc &
+dunst -config $HOME/.config/qtile/dunstrc &
 
 # picom start
 picom --config $HOME/.config/qtile/picom.conf &
