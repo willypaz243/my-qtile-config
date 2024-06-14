@@ -20,3 +20,6 @@ picom --config $HOME/.config/qtile/picom.conf &
 
 # policykit
 /usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1 &
+
+# flameshot 
+QT_QPA_PLATFORMTHEME=qt5ct flameshot &
