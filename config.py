@@ -202,6 +202,7 @@ floating_layout = layout.Floating(
         # Apply to specific programs.
         Match(wm_class="Emulator"),  # Android Studio Emulator
         Match(wm_class="plasma-emojier"),  # plasma-emojier
+        Match(wm_class="pavucontrol"),  # pavucontrol
         # Extra
         Match(wm_class="confirmreset"),  # gitk
         Match(wm_class="makebranch"),  # gitk

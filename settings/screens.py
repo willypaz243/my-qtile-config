@@ -5,6 +5,7 @@ from libqtile import widget
 from libqtile.bar import Bar
 from libqtile.config import Screen
 from libqtile.log_utils import logger
+from libqtile import qtile
 
 from settings.icons import calenic, clockic
 from settings.themes import Colors
@@ -26,11 +27,33 @@ def add_icon(icon, fg, bg):
     )
 
 
+def increase_volume():
+    qtile.cmd_spawn("pactl set-sink-volume @DEFAULT_SINK@ +3%")  # type: ignore
+
+
+def decrease_volume():
+    qtile.cmd_spawn("pactl set-sink-volume @DEFAULT_SINK@ -1%")  # type: ignore
+
+
 def primary_widgets(colors: Colors):
     default_config = dict(background=colors["bg"], foreground=colors["fg"])
     return [
         *secondary_widgets(colors)[:-1],
         widget.Systray(**default_config, padding_x=16, padding_y=8),
+        widget.Volume(
+            **default_config,
+            emoji=False,
+            scroll=True,
+            mouse_callbacks={
+                "Button1": lambda: qtile.cmd_spawn("pavucontrol"),  # type: ignore
+                "Button4": increase_volume,
+                "Button5": decrease_volume,
+            },
+            # update_interval=1,
+            channel="Master",
+        ),
+        widget.BatteryIcon(**default_config, scale=1.75),
+        widget.Battery(**default_config),
         add_icon("|", colors["fg"], colors["bg"]),
         add_icon(calenic, colors["green"], colors["bg"]),
         widget.Clock(**default_config, format="%b %d-%Y"),
