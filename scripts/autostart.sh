@@ -3,11 +3,8 @@
 # Network Manager icon
 nm-applet &
 
-# Volume icon
-volumeicon &
-
 # Battery icon
-cbatticon -u 5 &
+#cbatticon -u 5 &
 
 # set background
 # bash $HOME/.config/qtile/scripts/.fehbg
@@ -22,4 +19,7 @@ picom --config $HOME/.config/qtile/picom.conf &
 /usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1 &
 
 # flameshot 
-QT_QPA_PLATFORMTHEME=qt5ct flameshot &
+QT_QPA_PLATFORMTHEME=kde flameshot &
+# flameshot &
+
+qtile cmd-obj -o cmd -f reload_config

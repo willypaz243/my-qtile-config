@@ -1,3 +1,6 @@
+#! /usr/bin/bash
+
+
 cd ~/
 
 sudo apt install -y software-properties-common
@@ -5,7 +8,7 @@ sudo apt install -y software-properties-common
 sudo add-apt-repository non-free contrib -y
 
 sudo apt install -y sudo git zsh curl wget neovim \
-    alacritty chromium xserver-xorg xinit \
+    kitty chromium xserver-xorg xinit \
     libpangocairo-1.0-0 python3-pip \
     python3-xcffib python3-cairocffi \
     lightdm picom arandr fonts-firacode \
